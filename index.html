@@ -9,66 +9,39 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Bebas+Neue&display=swap" rel="stylesheet" />
 
-  <!-- ============================================================
-       MINDBLOWING THEME TOGGLE STYLES (ported from about.html)
-  ============================================================ -->
   <style>
+    /* ── MINDBLOWING THEME TOGGLE ── */
     .theme-btn {
-      position: relative;
-      width: 72px; height: 36px;
-      background: none; border: none;
-      cursor: pointer; outline: none;
+      position: relative; width: 72px; height: 36px;
+      background: none; border: none; cursor: pointer; outline: none;
       -webkit-tap-highlight-color: transparent;
     }
     .theme-track {
-      position: absolute; inset: 0;
-      border-radius: 18px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+      position: absolute; inset: 0; border-radius: 18px;
+      background: var(--surface); border: 1px solid var(--border);
+      overflow: hidden; transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
     }
-    /* Cosmic dark background */
     .theme-track::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(circle at 70% 50%, rgba(150,100,255,0.15) 0%, transparent 60%),
-        linear-gradient(135deg, #0a0520 0%, #060310 100%);
-      opacity: 0;
-      transition: opacity 0.6s ease;
-      border-radius: 18px;
+      content: ''; position: absolute; inset: 0; border-radius: 18px;
+      background: radial-gradient(circle at 70% 50%, rgba(150,100,255,0.15) 0%, transparent 60%),
+                  linear-gradient(135deg, #0a0520 0%, #060310 100%);
+      opacity: 0; transition: opacity 0.6s ease;
     }
     [data-theme="dark"] .theme-track::before { opacity: 1; }
-    /* Sunny light background */
     .theme-track::after {
-      content: '';
-      position: absolute; inset: 0;
+      content: ''; position: absolute; inset: 0; border-radius: 18px;
       background: linear-gradient(135deg, #fff3c8 0%, #ffd96e 100%);
-      opacity: 0;
-      transition: opacity 0.6s ease;
-      border-radius: 18px;
+      opacity: 0; transition: opacity 0.6s ease;
     }
     [data-theme="light"] .theme-track::after { opacity: 1; }
-    /* Stars */
-    .theme-stars {
-      position: absolute; inset: 0; pointer-events: none;
-      border-radius: 18px; overflow: hidden;
-    }
-    .theme-star {
-      position: absolute;
-      background: white; border-radius: 50%;
-      transition: opacity 0.5s ease;
-    }
+    .theme-stars { position: absolute; inset: 0; pointer-events: none; border-radius: 18px; overflow: hidden; }
+    .theme-star  { position: absolute; background: white; border-radius: 50%; transition: opacity 0.5s ease; }
     [data-theme="dark"]  .theme-star { opacity: 1; }
     [data-theme="light"] .theme-star { opacity: 0; }
-    /* Thumb orb */
     .theme-thumb {
-      position: absolute; top: 4px; left: 4px;
-      width: 28px; height: 28px;
+      position: absolute; top: 4px; left: 4px; width: 28px; height: 28px;
       border-radius: 50%; z-index: 2;
-      transition: transform 0.6s cubic-bezier(0.34,1.56,0.64,1),
-                  background 0.6s ease, box-shadow 0.6s ease;
+      transition: transform 0.6s cubic-bezier(0.34,1.56,0.64,1), background 0.6s ease, box-shadow 0.6s ease;
       background: radial-gradient(circle at 35% 35%, #d0d0ff 0%, #8080cc 60%, #4040aa 100%);
       box-shadow: inset -3px -2px 5px rgba(0,0,0,0.4),
                   0 0 12px rgba(120,100,255,0.5), 0 0 24px rgba(120,100,255,0.3);
@@ -77,32 +50,25 @@
       transform: translateX(36px);
       background: radial-gradient(circle at 35% 35%, #fff7c0 0%, #ffd740 50%, #ff9f00 100%);
       box-shadow: inset -2px -2px 4px rgba(0,0,0,0.1),
-                  0 0 14px rgba(255,180,0,0.6), 0 0 30px rgba(255,150,0,0.4),
-                  0 0 50px rgba(255,100,0,0.2);
+                  0 0 14px rgba(255,180,0,0.6), 0 0 30px rgba(255,150,0,0.4), 0 0 50px rgba(255,100,0,0.2);
     }
-    /* Burst ripple */
     .theme-burst {
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%,-50%) scale(0);
-      width: 80px; height: 80px;
-      border-radius: 50%; pointer-events: none; opacity: 0;
+      width: 80px; height: 80px; border-radius: 50%; pointer-events: none; opacity: 0;
     }
-    .theme-btn.bursting .theme-burst {
-      animation: themeBurst 0.6s cubic-bezier(0.2,0,0,1) forwards;
-    }
+    .theme-btn.bursting .theme-burst { animation: themeBurst 0.6s cubic-bezier(0.2,0,0,1) forwards; }
     [data-theme="light"] .theme-burst { background: radial-gradient(circle, rgba(255,200,0,0.4), transparent); }
     [data-theme="dark"]  .theme-burst { background: radial-gradient(circle, rgba(120,100,255,0.4), transparent); }
     @keyframes themeBurst {
       0%   { transform: translate(-50%,-50%) scale(0); opacity: 1; }
       100% { transform: translate(-50%,-50%) scale(3); opacity: 0; }
     }
-    /* Hover glow ring */
     .theme-track-glow {
-      position: absolute; inset: -2px; border-radius: 20px;
-      pointer-events: none; opacity: 0; transition: opacity 0.3s;
+      position: absolute; inset: -2px; border-radius: 20px; pointer-events: none; opacity: 0; transition: opacity 0.3s;
     }
     [data-theme="dark"]  .theme-track-glow { box-shadow: 0 0 12px rgba(120,100,255,0.4), 0 0 24px rgba(120,100,255,0.2); }
-    [data-theme="light"] .theme-track-glow { box-shadow: 0 0 12px rgba(255,180,0,0.5), 0 0 24px rgba(255,150,0,0.3); }
+    [data-theme="light"] .theme-track-glow { box-shadow: 0 0 12px rgba(255,180,0,0.5),   0 0 24px rgba(255,150,0,0.3); }
     .theme-btn:hover .theme-track-glow { opacity: 1; }
   </style>
 </head>
@@ -136,14 +102,14 @@
       <li><a href="#contact" class="nav-link">Contact</a></li>
     </ul>
     <div class="nav-right">
-      <!-- MINDBLOWING THEME TOGGLE (ported from about.html) -->
+      <!-- MINDBLOWING THEME TOGGLE -->
       <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
         <div class="theme-track">
           <div class="theme-stars" id="themeStars"></div>
-          <div class="theme-thumb" id="themeThumb"></div>
+          <div class="theme-thumb"></div>
           <div class="theme-track-glow"></div>
         </div>
-        <div class="theme-burst" id="themeBurst"></div>
+        <div class="theme-burst"></div>
       </button>
       <button class="nav-menu-btn" id="menuBtn" aria-label="Open menu">
         <span></span><span></span><span></span>
@@ -188,7 +154,6 @@
       <div class="scroll-line"></div>
       <span>Scroll</span>
     </div>
-    <!-- Floating badge -->
     <div class="hero-badge">
       <svg viewBox="0 0 100 100" class="badge-ring">
         <defs><path id="circle" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs>
@@ -304,12 +269,8 @@
         <!-- Project 1 -->
         <article class="project-card reveal-up" data-delay="0">
           <div class="project-thumb" style="--accent: #e8c547">
-            <div class="project-thumb-inner">
-              <div class="proj-icon">◈</div>
-            </div>
-            <div class="project-overlay">
-              <a href="#" class="proj-link-btn">View Project ↗</a>
-            </div>
+            <div class="project-thumb-inner"><div class="proj-icon">◈</div></div>
+            <div class="project-overlay"><a href="#" class="proj-link-btn">View Project ↗</a></div>
           </div>
           <div class="project-body">
             <div class="project-meta">
@@ -323,16 +284,15 @@
                 <div class="like-heart">
                   <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                 </div>
-                <span class="like-count">24</span>
+                <span class="like-count">0</span>
                 <div class="like-particles" aria-hidden="true"></div>
               </button>
               <button class="comment-btn" data-id="1" aria-label="Comment on project">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                <span class="comment-count">8</span>
+                <span class="comment-count">0</span>
               </button>
             </div>
           </div>
-          <!-- Comment Box -->
           <div class="comment-box" id="comment-box-1">
             <div class="comments-list" id="comments-1"></div>
             <div class="comment-input-wrap">
@@ -345,12 +305,8 @@
         <!-- Project 2 -->
         <article class="project-card reveal-up" data-delay="100">
           <div class="project-thumb" style="--accent: #5a9cf5">
-            <div class="project-thumb-inner">
-              <div class="proj-icon">⬡</div>
-            </div>
-            <div class="project-overlay">
-              <a href="#" class="proj-link-btn">View Project ↗</a>
-            </div>
+            <div class="project-thumb-inner"><div class="proj-icon">⬡</div></div>
+            <div class="project-overlay"><a href="#" class="proj-link-btn">View Project ↗</a></div>
           </div>
           <div class="project-body">
             <div class="project-meta">
@@ -364,12 +320,12 @@
                 <div class="like-heart">
                   <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                 </div>
-                <span class="like-count">41</span>
+                <span class="like-count">0</span>
                 <div class="like-particles" aria-hidden="true"></div>
               </button>
               <button class="comment-btn" data-id="2" aria-label="Comment">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                <span class="comment-count">13</span>
+                <span class="comment-count">0</span>
               </button>
             </div>
           </div>
@@ -385,12 +341,8 @@
         <!-- Project 3 -->
         <article class="project-card reveal-up" data-delay="200">
           <div class="project-thumb" style="--accent: #f56e6e">
-            <div class="project-thumb-inner">
-              <div class="proj-icon">◉</div>
-            </div>
-            <div class="project-overlay">
-              <a href="#" class="proj-link-btn">View Project ↗</a>
-            </div>
+            <div class="project-thumb-inner"><div class="proj-icon">◉</div></div>
+            <div class="project-overlay"><a href="#" class="proj-link-btn">View Project ↗</a></div>
           </div>
           <div class="project-body">
             <div class="project-meta">
@@ -404,12 +356,12 @@
                 <div class="like-heart">
                   <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                 </div>
-                <span class="like-count">37</span>
+                <span class="like-count">0</span>
                 <div class="like-particles" aria-hidden="true"></div>
               </button>
               <button class="comment-btn" data-id="3" aria-label="Comment">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                <span class="comment-count">5</span>
+                <span class="comment-count">0</span>
               </button>
             </div>
           </div>
@@ -425,12 +377,8 @@
         <!-- Project 4 -->
         <article class="project-card reveal-up" data-delay="0">
           <div class="project-thumb" style="--accent: #8b5cf6">
-            <div class="project-thumb-inner">
-              <div class="proj-icon">⬟</div>
-            </div>
-            <div class="project-overlay">
-              <a href="#" class="proj-link-btn">View Project ↗</a>
-            </div>
+            <div class="project-thumb-inner"><div class="proj-icon">⬟</div></div>
+            <div class="project-overlay"><a href="#" class="proj-link-btn">View Project ↗</a></div>
           </div>
           <div class="project-body">
             <div class="project-meta">
@@ -444,12 +392,12 @@
                 <div class="like-heart">
                   <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                 </div>
-                <span class="like-count">29</span>
+                <span class="like-count">0</span>
                 <div class="like-particles" aria-hidden="true"></div>
               </button>
               <button class="comment-btn" data-id="4" aria-label="Comment">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                <span class="comment-count">11</span>
+                <span class="comment-count">0</span>
               </button>
             </div>
           </div>
@@ -465,12 +413,8 @@
         <!-- Project 5 -->
         <article class="project-card reveal-up" data-delay="100">
           <div class="project-thumb" style="--accent: #34d399">
-            <div class="project-thumb-inner">
-              <div class="proj-icon">⬢</div>
-            </div>
-            <div class="project-overlay">
-              <a href="#" class="proj-link-btn">View Project ↗</a>
-            </div>
+            <div class="project-thumb-inner"><div class="proj-icon">⬢</div></div>
+            <div class="project-overlay"><a href="#" class="proj-link-btn">View Project ↗</a></div>
           </div>
           <div class="project-body">
             <div class="project-meta">
@@ -484,12 +428,12 @@
                 <div class="like-heart">
                   <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                 </div>
-                <span class="like-count">56</span>
+                <span class="like-count">0</span>
                 <div class="like-particles" aria-hidden="true"></div>
               </button>
               <button class="comment-btn" data-id="5" aria-label="Comment">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                <span class="comment-count">18</span>
+                <span class="comment-count">0</span>
               </button>
             </div>
           </div>
@@ -507,7 +451,7 @@
   </section>
 
   <!-- ============================================================
-       TESTIMONIALS / QUOTE MARQUEE
+       QUOTE MARQUEE
   ============================================================ -->
   <div class="marquee-section marquee-reverse">
     <div class="marquee-track">
@@ -532,9 +476,7 @@
        CONTACT
   ============================================================ -->
   <section class="contact" id="contact">
-    <div class="contact-bg">
-      <div class="hero-orb orb-3"></div>
-    </div>
+    <div class="contact-bg"><div class="hero-orb orb-3"></div></div>
     <div class="container">
       <div class="contact-inner reveal-up">
         <div class="section-label">— Get In Touch</div>
@@ -615,68 +557,6 @@
     </div>
   </footer>
 
-  <!-- main.js handles everything else (loader, cursor, nav, scroll reveal, stats, likes, comments, form, toast) -->
   <script src="main.js"></script>
-
-  <!-- ============================================================
-       MINDBLOWING THEME TOGGLE SCRIPT
-       Runs AFTER main.js — overrides the old initTheme() toggle behaviour
-       only for the new toggle button. Uses the same localStorage key
-       so theme persists correctly across both pages.
-  ============================================================ -->
-  <script>
-    (function initMindblowingTheme() {
-      const btn     = document.getElementById('themeToggle');
-      const html    = document.documentElement;
-      const starsEl = document.getElementById('themeStars');
-      const KEY     = 'oridra-theme';
-
-      /* Generate twinkling stars inside the toggle track */
-      for (let i = 0; i < 12; i++) {
-        const s    = document.createElement('div');
-        s.className = 'theme-star';
-        const size  = 1 + Math.random() * 2.5;
-        s.style.cssText = `
-          width:${size}px; height:${size}px;
-          top:${10 + Math.random() * 80}%;
-          left:${5  + Math.random() * 55}%;
-          opacity:${0.4 + Math.random() * 0.6};
-          animation: starTwinkle ${1.5 + Math.random() * 2}s ease-in-out ${Math.random() * 2}s infinite alternate;
-        `;
-        starsEl.appendChild(s);
-      }
-
-      /* Inject keyframe for star twinkle */
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes starTwinkle {
-          from { transform: scale(1);   opacity: 0.3; }
-          to   { transform: scale(1.8); opacity: 1;   }
-        }
-      `;
-      document.head.appendChild(style);
-
-      /* Apply saved theme on load (same key as main.js uses) */
-      const saved = localStorage.getItem(KEY);
-      if (saved) html.setAttribute('data-theme', saved);
-
-      /* Click handler — replaces the old plain toggle */
-      btn.addEventListener('click', () => {
-        const current = html.getAttribute('data-theme');
-        const next    = current === 'dark' ? 'light' : 'dark';
-
-        /* Fire burst animation in the CURRENT theme colour first */
-        btn.classList.add('bursting');
-        btn.addEventListener('animationend', () => btn.classList.remove('bursting'), { once: true });
-
-        /* Small delay so the burst is visible before the theme flips */
-        setTimeout(() => {
-          html.setAttribute('data-theme', next);
-          localStorage.setItem(KEY, next);
-        }, 80);
-      });
-    })();
-  </script>
-
 </body>
 </html>
