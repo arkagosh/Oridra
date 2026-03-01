@@ -70,6 +70,19 @@
     [data-theme="dark"]  .theme-track-glow { box-shadow: 0 0 12px rgba(120,100,255,0.4), 0 0 24px rgba(120,100,255,0.2); }
     [data-theme="light"] .theme-track-glow { box-shadow: 0 0 12px rgba(255,180,0,0.5),   0 0 24px rgba(255,150,0,0.3); }
     .theme-btn:hover .theme-track-glow { opacity: 1; }
+
+    /* ── SOCIAL LINKS ── */
+    .social-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--text-secondary);
+      transition: color 0.2s ease, gap 0.2s ease;
+    }
+    .social-link:hover { color: var(--accent); gap: 12px; }
+    .social-icon {
+      width: 16px; height: 16px; flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .social-link:hover .social-icon { transform: scale(1.2); }
   </style>
 </head>
 <body>
@@ -543,10 +556,24 @@
         <div class="footer-links-group">
           <h4>Connect</h4>
           <ul>
-            <li><a href="#">Twitter/X</a></li>
-            <li><a href="#">LinkedIn</a></li>
-            <li><a href="#">Dribbble</a></li>
-            <li><a href="#">GitHub</a></li>
+            <li>
+              <a href="https://www.facebook.com/oridra.gosh" target="_blank" rel="noopener" class="social-link">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                Facebook
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/oridra_gosh/" target="_blank" rel="noopener" class="social-link">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a href="https://t.me/Oridragosh" target="_blank" rel="noopener" class="social-link">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8-1.7 8.02c-.13.58-.47.72-.95.45l-2.6-1.92-1.26 1.21c-.14.14-.26.26-.53.26l.19-2.66 4.84-4.37c.21-.19-.05-.29-.32-.1L7.9 15.04l-2.55-.8c-.55-.17-.56-.55.12-.82l9.96-3.84c.46-.17.86.11.71.82z"/></svg>
+                Telegram
+              </a>
+            </li>
           </ul>
         </div>
       </div>
