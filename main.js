@@ -12,14 +12,12 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
    MODULE: LOADER
 ============================================================ */
 (function initLoader() {
-  const loader   = $('#loader');
-  const fill     = $('#loaderFill');
+  const loader = $('#loader');
+  const fill   = $('#loaderFill');
   if (!loader) return;
 
-  // Animate fill bar
   setTimeout(() => { fill.style.width = '100%'; }, 100);
 
-  // Hide loader after animation
   setTimeout(() => {
     loader.classList.add('hidden');
     document.body.style.overflow = '';
@@ -37,8 +35,8 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   const follower = $('#cursorFollower');
   if (!cursor || !follower) return;
 
-  let fx = 0, fy = 0;   // follower coords
-  let mx = 0, my = 0;   // mouse coords
+  let fx = 0, fy = 0;
+  let mx = 0, my = 0;
 
   document.addEventListener('mousemove', (e) => {
     mx = e.clientX; my = e.clientY;
@@ -46,7 +44,6 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
     cursor.style.top  = my + 'px';
   });
 
-  // Smooth follower
   function animateFollower() {
     fx += (mx - fx) * 0.12;
     fy += (my - fy) * 0.12;
@@ -56,7 +53,6 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   }
   animateFollower();
 
-  // Expand cursor on interactive elements
   document.querySelectorAll('a, button, .project-card, .skill-tag').forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.style.width = '16px';
@@ -77,24 +73,21 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
    MODULE: NAVIGATION
 ============================================================ */
 (function initNav() {
-  const nav     = $('#nav');
-  const menuBtn = $('#menuBtn');
+  const nav         = $('#nav');
+  const menuBtn     = $('#menuBtn');
   const mobileMenu  = $('#mobileMenu');
   const mobileClose = $('#mobileClose');
   const mobileLinks = $$('.mobile-link');
 
-  // Scroll shrink
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 60);
   });
 
-  // Mobile menu open
   if (menuBtn) menuBtn.addEventListener('click', () => {
     mobileMenu.classList.add('open');
     document.body.style.overflow = 'hidden';
   });
 
-  // Mobile menu close
   function closeMenu() {
     mobileMenu.classList.remove('open');
     document.body.style.overflow = '';
@@ -102,7 +95,6 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   if (mobileClose) mobileClose.addEventListener('click', closeMenu);
   mobileLinks.forEach(l => l.addEventListener('click', closeMenu));
 
-  // Smooth scroll for all anchor links
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
@@ -115,23 +107,67 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 })();
 
 /* ============================================================
-   MODULE: THEME TOGGLE
+   MODULE: MINDBLOWING THEME TOGGLE
+   Works for BOTH index.html (id=themeToggle) and about.html (id=themeBtn)
 ============================================================ */
 (function initTheme() {
-  const btn  = $('#themeToggle');
+  /* Support both button IDs */
+  const btn  = document.getElementById('themeToggle') || document.getElementById('themeBtn');
   const html = document.documentElement;
-  const key  = 'oridra-theme';
+  const KEY  = 'oridra-theme';
 
-  // Load saved theme
-  const saved = localStorage.getItem(key);
+  /* Apply saved theme immediately */
+  const saved = localStorage.getItem(KEY);
   if (saved) html.setAttribute('data-theme', saved);
 
-  btn?.addEventListener('click', () => {
+  if (!btn) return;
+
+  /* Build stars if the stars container exists (new toggle) */
+  const starsEl = document.getElementById('themeStars');
+  if (starsEl && starsEl.children.length === 0) {
+    for (let i = 0; i < 12; i++) {
+      const s    = document.createElement('div');
+      s.className = 'theme-star';
+      const size  = 1 + Math.random() * 2.5;
+      s.style.cssText = `
+        width:${size}px; height:${size}px;
+        top:${10 + Math.random() * 80}%;
+        left:${5  + Math.random() * 55}%;
+        opacity:${0.4 + Math.random() * 0.6};
+        animation: starTwinkle ${1.5 + Math.random() * 2}s ease-in-out
+                   ${Math.random() * 2}s infinite alternate;
+      `;
+      starsEl.appendChild(s);
+    }
+
+    /* Inject star keyframe once */
+    if (!document.getElementById('starKeyframe')) {
+      const style = document.createElement('style');
+      style.id = 'starKeyframe';
+      style.textContent = `
+        @keyframes starTwinkle {
+          from { transform: scale(1);   opacity: 0.3; }
+          to   { transform: scale(1.8); opacity: 1;   }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }
+
+  btn.addEventListener('click', () => {
     const current = html.getAttribute('data-theme');
     const next    = current === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem(key, next);
-    showToast(next === 'dark' ? '🌙 Dark mode enabled' : '☀️ Light mode enabled');
+
+    /* Burst animation (new toggle only) */
+    btn.classList.add('bursting');
+    btn.addEventListener('animationend', () => btn.classList.remove('bursting'), { once: true });
+
+    /* Small delay so burst fires in old theme colour first */
+    setTimeout(() => {
+      html.setAttribute('data-theme', next);
+      localStorage.setItem(KEY, next);
+      showToast(next === 'dark' ? '🌙 Dark mode enabled' : '☀️ Light mode enabled');
+    }, 80);
   });
 })();
 
@@ -144,9 +180,7 @@ function triggerReveal() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const delay = entry.target.dataset.delay || 0;
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, +delay);
+        setTimeout(() => entry.target.classList.add('visible'), +delay);
         observer.unobserve(entry.target);
       }
     });
@@ -155,7 +189,6 @@ function triggerReveal() {
   els.forEach(el => observer.observe(el));
 }
 
-// Also run reveal after page load in case loader finishes early
 window.addEventListener('load', () => {
   setTimeout(triggerReveal, 2100);
 });
@@ -164,31 +197,27 @@ window.addEventListener('load', () => {
    MODULE: STATS COUNTER
 ============================================================ */
 (function initStats() {
-  const statNumbers = $$('.stat-number');
-  const statCards   = $$('.stat-card');
+  const statCards = $$('.stat-card');
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const card = entry.target;
+        const card  = entry.target;
         const numEl = card.querySelector('.stat-number');
         if (!numEl || card.classList.contains('animated')) return;
 
         card.classList.add('animated');
-        const target  = parseFloat(numEl.dataset.target);
-        const isDecimal = card.querySelector('.stat-number.decimal') !== null;
-        const duration = 1800;
-        const start = performance.now();
+        const target    = parseFloat(numEl.dataset.target);
+        const isDecimal = numEl.classList.contains('decimal');
+        const duration  = 1800;
+        const start     = performance.now();
 
         function update(now) {
-          const elapsed = now - start;
+          const elapsed  = now - start;
           const progress = Math.min(elapsed / duration, 1);
-          // Ease out quart
-          const ease = 1 - Math.pow(1 - progress, 4);
-          const current = target * ease;
-          numEl.textContent = isDecimal
-            ? current.toFixed(2)
-            : Math.round(current);
+          const ease     = 1 - Math.pow(1 - progress, 4);
+          const current  = target * ease;
+          numEl.textContent = isDecimal ? current.toFixed(2) : Math.round(current);
           if (progress < 1) requestAnimationFrame(update);
         }
 
@@ -202,76 +231,90 @@ window.addEventListener('load', () => {
 })();
 
 /* ============================================================
-   MODULE: LIKE BUTTONS
+   MODULE: LIKE BUTTONS — Real counter starting from 0
 ============================================================ */
 (function initLikeButtons() {
-  const STORAGE_KEY = 'oridra-likes';
+  const LIKES_KEY = 'oridra-likes-v2';      /* counts per project  */
+  const LIKED_KEY = 'oridra-liked-state';   /* which ones YOU liked */
 
-  // Load liked state from localStorage
-  function getLiked() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+  /* Load stored data */
+  function getLikeCounts() {
+    try { return JSON.parse(localStorage.getItem(LIKES_KEY)) || {}; }
     catch { return {}; }
   }
-  function saveLiked(obj) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+  function getLikedState() {
+    try { return JSON.parse(localStorage.getItem(LIKED_KEY)) || {}; }
+    catch { return {}; }
   }
+  function saveLikeCounts(obj) { localStorage.setItem(LIKES_KEY, JSON.stringify(obj)); }
+  function saveLikedState(obj) { localStorage.setItem(LIKED_KEY, JSON.stringify(obj)); }
 
-  // Apply initial liked state
-  const liked = getLiked();
+  /* Set every counter to its stored value (starts at 0 if never liked) */
+  const counts = getLikeCounts();
+  const liked  = getLikedState();
+
   $$('.like-btn').forEach(btn => {
-    const id = btn.dataset.id;
+    const id      = btn.dataset.id;
+    const countEl = btn.querySelector('.like-count');
+    const svgEl   = btn.querySelector('.like-heart svg');
+
+    /* Show real count (default 0) */
+    countEl.textContent = counts[id] || 0;
+
+    /* Restore liked visual state */
     if (liked[id]) {
       btn.classList.add('liked');
-      btn.querySelector('.like-heart svg').style.fill = '#e8547a';
+      svgEl.style.fill = '#e8547a';
     }
   });
 
   $$('.like-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const id       = btn.dataset.id;
-      const countEl  = btn.querySelector('.like-count');
-      const svgEl    = btn.querySelector('.like-heart svg');
-      const liked    = getLiked();
-      let   count    = parseInt(countEl.textContent, 10);
+      const id      = btn.dataset.id;
+      const countEl = btn.querySelector('.like-count');
+      const svgEl   = btn.querySelector('.like-heart svg');
+      const counts  = getLikeCounts();
+      const liked   = getLikedState();
 
       if (!liked[id]) {
-        // ---- LIKE ----
-        liked[id] = true;
-        saveLiked(liked);
-        count++;
+        /* ── LIKE ── */
+        liked[id]  = true;
+        counts[id] = (counts[id] || 0) + 1;
+        saveLikedState(liked);
+        saveLikeCounts(counts);
+
         btn.classList.add('liked', 'pop');
         svgEl.style.fill = '#e8547a';
         spawnParticles(btn);
         showToast('❤️ Liked!');
       } else {
-        // ---- UNLIKE ----
+        /* ── UNLIKE ── */
         delete liked[id];
-        saveLiked(liked);
-        count--;
+        counts[id] = Math.max((counts[id] || 1) - 1, 0);
+        saveLikedState(liked);
+        saveLikeCounts(counts);
+
         btn.classList.remove('liked');
         svgEl.style.fill = 'transparent';
         showToast('💔 Unliked');
       }
 
-      countEl.textContent = count;
-      // Remove pop class after animation
+      countEl.textContent = counts[id];
       btn.addEventListener('animationend', () => btn.classList.remove('pop'), { once: true });
     });
   });
 
-  /* Spawn coloured particles on like */
   function spawnParticles(btn) {
     const container = btn.querySelector('.like-particles');
     if (!container) return;
     const colours = ['#e8547a', '#f5a623', '#f8e81c', '#f06', '#e879f9'];
-
     for (let i = 0; i < 8; i++) {
-      const p = document.createElement('span');
+      const p     = document.createElement('span');
       p.className = 'particle';
-      const angle  = (i / 8) * 360;
-      const dist   = 28 + Math.random() * 16;
-      const tx     = Math.cos((angle * Math.PI) / 180) * dist;
-      const ty     = Math.sin((angle * Math.PI) / 180) * dist;
+      const angle = (i / 8) * 360;
+      const dist  = 28 + Math.random() * 16;
+      const tx    = Math.cos((angle * Math.PI) / 180) * dist;
+      const ty    = Math.sin((angle * Math.PI) / 180) * dist;
       p.style.cssText = `
         background:${colours[i % colours.length]};
         --tx:${tx}px; --ty:${ty}px;
@@ -284,10 +327,10 @@ window.addEventListener('load', () => {
 })();
 
 /* ============================================================
-   MODULE: COMMENT BUTTONS
+   MODULE: COMMENT BUTTONS — Real counter starting from 0
 ============================================================ */
 (function initComments() {
-  const STORAGE_KEY = 'oridra-comments';
+  const STORAGE_KEY = 'oridra-comments-v2';
 
   function getComments() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
@@ -297,49 +340,50 @@ window.addEventListener('load', () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
   }
 
-  // Render saved comments on load
+  /* Render saved comments and update counter badge */
   function renderComments(projectId) {
-    const list = $(`#comments-${projectId}`);
+    const list    = $(`#comments-${projectId}`);
+    const countEl = $(`.comment-btn[data-id="${projectId}"] .comment-count`);
     if (!list) return;
+
     const all = getComments()[projectId] || [];
     list.innerHTML = '';
     all.forEach(text => appendComment(list, text));
+
+    /* Set real count (0 if none) */
+    if (countEl) countEl.textContent = all.length;
   }
 
   function appendComment(listEl, text) {
     const item = document.createElement('div');
-    item.className = 'comment-item';
+    item.className  = 'comment-item';
     item.textContent = text;
     listEl.appendChild(item);
-    // Auto scroll to bottom
     listEl.scrollTop = listEl.scrollHeight;
   }
 
-  // Init all projects
-  ['1','2','3','4','5'].forEach(id => renderComments(id));
+  /* Init all projects */
+  ['1', '2', '3', '4', '5'].forEach(id => renderComments(id));
 
-  // Toggle comment box
+  /* Toggle comment box */
   $$('.comment-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const projectId = btn.dataset.id;
       const box = $(`#comment-box-${projectId}`);
       if (!box) return;
       const isOpen = box.classList.contains('open');
-      // Close all others
       $$('.comment-box').forEach(b => b.classList.remove('open'));
       if (!isOpen) {
         box.classList.add('open');
-        const input = box.querySelector('.comment-input');
-        setTimeout(() => input?.focus(), 350);
+        setTimeout(() => box.querySelector('.comment-input')?.focus(), 350);
       }
     });
   });
 
-  // Submit comment
+  /* Submit comment */
   $$('.comment-submit').forEach(btn => {
     btn.addEventListener('click', () => submitComment(btn.dataset.project));
   });
-
   $$('.comment-input').forEach(input => {
     input.addEventListener('keydown', e => {
       if (e.key === 'Enter') submitComment(input.dataset.project);
@@ -357,14 +401,14 @@ window.addEventListener('load', () => {
 
     appendComment(listEl, text);
 
-    // Persist
+    /* Persist */
     const all = getComments();
     if (!all[projectId]) all[projectId] = [];
     all[projectId].push(text);
     saveComments(all);
 
-    // Update count
-    if (countEl) countEl.textContent = parseInt(countEl.textContent, 10) + 1;
+    /* Update real count */
+    if (countEl) countEl.textContent = all[projectId].length;
 
     showToast('💬 Comment posted!');
   }
@@ -380,7 +424,7 @@ window.addEventListener('load', () => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = $('#fname')?.value.trim();
+    const name  = $('#fname')?.value.trim();
     const email = $('#femail')?.value.trim();
     const msg   = $('#fmessage')?.value.trim();
 
@@ -393,7 +437,6 @@ window.addEventListener('load', () => {
       return;
     }
 
-    // Simulate sending
     const btn = form.querySelector('.btn-submit');
     btn.disabled = true;
     btn.querySelector('.btn-text').textContent = 'Sending...';
@@ -421,7 +464,6 @@ function showToast(msg) {
     toast.className = 'toast';
     document.body.appendChild(toast);
   }
-
   toast.textContent = msg;
   toast.classList.add('show');
   clearTimeout(toastTimer);
