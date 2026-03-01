@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oridra — Creative Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Bebas+Neue&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ============================================================
+       CURSOR
+  ============================================================ -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- ============================================================
+       LOADER
+  ============================================================ -->
+  <div class="loader" id="loader">
+    <div class="loader-text">
+      <span>O</span><span>R</span><span>I</span><span>D</span><span>R</span><span>A</span>
+    </div>
+    <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
+  </div>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav class="nav" id="nav">
+    <a href="#home" class="nav-logo">ORIDRA</a>
+    <ul class="nav-links">
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#work" class="nav-link">Work</a></li>
+      <li><a href="#stats" class="nav-link">Stats</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <div class="toggle-track">
+          <div class="toggle-sun">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+          </div>
+          <div class="toggle-moon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </div>
+          <div class="toggle-thumb" id="toggleThumb"></div>
+        </div>
+      </button>
+      <button class="nav-menu-btn" id="menuBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">✕</button>
+    <ul>
+      <li><a href="#about" class="mobile-link">About</a></li>
+      <li><a href="#work" class="mobile-link">Work</a></li>
+      <li><a href="#stats" class="mobile-link">Stats</a></li>
+      <li><a href="#contact" class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-tag reveal-up">Creative Director &amp; Developer</p>
+      <h1 class="hero-title reveal-up">
+        <span class="title-line">Crafting</span>
+        <span class="title-line italic">Digital</span>
+        <span class="title-line">Experiences</span>
+      </h1>
+      <p class="hero-sub reveal-up">Strategy · Design · Development</p>
+      <div class="hero-cta reveal-up">
+        <a href="#work" class="btn btn-primary">View Work</a>
+        <a href="#contact" class="btn btn-ghost">Let's Talk</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+    <!-- Floating badge -->
+    <div class="hero-badge">
+      <svg viewBox="0 0 100 100" class="badge-ring">
+        <defs><path id="circle" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs>
+        <text font-size="10.5" fill="currentColor" letter-spacing="2">
+          <textPath href="#circle">AVAILABLE FOR WORK • AVAILABLE FOR WORK •</textPath>
+        </text>
+      </svg>
+      <div class="badge-dot"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MARQUEE
+  ============================================================ -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-inner">
+        <span>UI/UX Design</span><span class="marquee-dot">✦</span>
+        <span>Web Development</span><span class="marquee-dot">✦</span>
+        <span>Brand Identity</span><span class="marquee-dot">✦</span>
+        <span>Motion Design</span><span class="marquee-dot">✦</span>
+        <span>Creative Direction</span><span class="marquee-dot">✦</span>
+        <span>Digital Strategy</span><span class="marquee-dot">✦</span>
+        <span>UI/UX Design</span><span class="marquee-dot">✦</span>
+        <span>Web Development</span><span class="marquee-dot">✦</span>
+        <span>Brand Identity</span><span class="marquee-dot">✦</span>
+        <span>Motion Design</span><span class="marquee-dot">✦</span>
+        <span>Creative Direction</span><span class="marquee-dot">✦</span>
+        <span>Digital Strategy</span><span class="marquee-dot">✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ABOUT
+  ============================================================ -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-label reveal-up">— About Me</div>
+      <div class="about-grid">
+        <div class="about-left reveal-left">
+          <h2 class="section-title">Building things that <em>matter</em></h2>
+          <p class="about-text">I'm a multi-disciplinary creative with 3+ years of hands-on experience designing and building digital products that sit at the intersection of beauty and function.</p>
+          <p class="about-text">I believe the best work emerges when strategy and aesthetics speak the same language — and that every pixel carries a story.</p>
+          <div class="about-skills">
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Next.js</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">GSAP</span>
+            <span class="skill-tag">Webflow</span>
+            <span class="skill-tag">Framer</span>
+            <span class="skill-tag">Motion</span>
+          </div>
+        </div>
+        <div class="about-right reveal-right">
+          <div class="about-img-wrap">
+            <div class="about-img-inner">
+              <div class="about-placeholder">
+                <div class="placeholder-monogram">O</div>
+              </div>
+            </div>
+            <div class="about-img-deco"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STATS
+  ============================================================ -->
+  <section class="stats" id="stats">
+    <div class="stats-bg"></div>
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card reveal-up" data-delay="0">
+          <div class="stat-number" data-target="3">0</div>
+          <div class="stat-suffix">+</div>
+          <div class="stat-label">Years Experience</div>
+          <div class="stat-bar"><div class="stat-fill" style="--fill: 75%"></div></div>
+        </div>
+        <div class="stat-card reveal-up" data-delay="100">
+          <div class="stat-number" data-target="5">0</div>
+          <div class="stat-suffix">+</div>
+          <div class="stat-label">Projects Completed</div>
+          <div class="stat-bar"><div class="stat-fill" style="--fill: 60%"></div></div>
+        </div>
+        <div class="stat-card reveal-up" data-delay="200">
+          <div class="stat-number decimal" data-target="98.66">0</div>
+          <div class="stat-suffix">%</div>
+          <div class="stat-label">Client Satisfaction</div>
+          <div class="stat-bar"><div class="stat-fill" style="--fill: 98.66%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WORK / PROJECTS
+  ============================================================ -->
+  <section class="work" id="work">
+    <div class="container">
+      <div class="section-label reveal-up">— Selected Work</div>
+      <h2 class="section-title reveal-up">Projects that <em>define</em> the craft</h2>
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <article class="project-card reveal-up" data-delay="0">
+          <div class="project-thumb" style="--accent: #e8c547">
+            <div class="project-thumb-inner">
+              <div class="proj-icon">◈</div>
+            </div>
+            <div class="project-overlay">
+              <a href="#" class="proj-link-btn">View Project ↗</a>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="proj-cat">Brand Identity</span>
+              <span class="proj-year">2024</span>
+            </div>
+            <h3 class="project-title">Lumis Brand System</h3>
+            <p class="project-desc">A comprehensive brand identity for a luxury wellness startup — logo, typography, color, and motion guidelines.</p>
+            <div class="project-actions">
+              <button class="like-btn" data-id="1" aria-label="Like project">
+                <div class="like-heart">
+                  <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <span class="like-count">24</span>
+                <div class="like-particles" aria-hidden="true"></div>
+              </button>
+              <button class="comment-btn" data-id="1" aria-label="Comment on project">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span class="comment-count">8</span>
+              </button>
+            </div>
+          </div>
+          <!-- Comment Box -->
+          <div class="comment-box" id="comment-box-1">
+            <div class="comments-list" id="comments-1"></div>
+            <div class="comment-input-wrap">
+              <input type="text" class="comment-input" placeholder="Add a comment..." data-project="1" />
+              <button class="comment-submit" data-project="1">Send</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card reveal-up" data-delay="100">
+          <div class="project-thumb" style="--accent: #5a9cf5">
+            <div class="project-thumb-inner">
+              <div class="proj-icon">⬡</div>
+            </div>
+            <div class="project-overlay">
+              <a href="#" class="proj-link-btn">View Project ↗</a>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="proj-cat">Web App</span>
+              <span class="proj-year">2024</span>
+            </div>
+            <h3 class="project-title">Nexus Dashboard</h3>
+            <p class="project-desc">A data-rich SaaS analytics dashboard built with React and D3.js, designed for clarity and speed.</p>
+            <div class="project-actions">
+              <button class="like-btn" data-id="2" aria-label="Like project">
+                <div class="like-heart">
+                  <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <span class="like-count">41</span>
+                <div class="like-particles" aria-hidden="true"></div>
+              </button>
+              <button class="comment-btn" data-id="2" aria-label="Comment">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span class="comment-count">13</span>
+              </button>
+            </div>
+          </div>
+          <div class="comment-box" id="comment-box-2">
+            <div class="comments-list" id="comments-2"></div>
+            <div class="comment-input-wrap">
+              <input type="text" class="comment-input" placeholder="Add a comment..." data-project="2" />
+              <button class="comment-submit" data-project="2">Send</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card reveal-up" data-delay="200">
+          <div class="project-thumb" style="--accent: #f56e6e">
+            <div class="project-thumb-inner">
+              <div class="proj-icon">◉</div>
+            </div>
+            <div class="project-overlay">
+              <a href="#" class="proj-link-btn">View Project ↗</a>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="proj-cat">E-Commerce</span>
+              <span class="proj-year">2023</span>
+            </div>
+            <h3 class="project-title">Ember Boutique</h3>
+            <p class="project-desc">A fashion-forward e-commerce experience with cinematic product showcases and seamless checkout flow.</p>
+            <div class="project-actions">
+              <button class="like-btn" data-id="3" aria-label="Like project">
+                <div class="like-heart">
+                  <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <span class="like-count">37</span>
+                <div class="like-particles" aria-hidden="true"></div>
+              </button>
+              <button class="comment-btn" data-id="3" aria-label="Comment">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span class="comment-count">5</span>
+              </button>
+            </div>
+          </div>
+          <div class="comment-box" id="comment-box-3">
+            <div class="comments-list" id="comments-3"></div>
+            <div class="comment-input-wrap">
+              <input type="text" class="comment-input" placeholder="Add a comment..." data-project="3" />
+              <button class="comment-submit" data-project="3">Send</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="project-card reveal-up" data-delay="0">
+          <div class="project-thumb" style="--accent: #8b5cf6">
+            <div class="project-thumb-inner">
+              <div class="proj-icon">⬟</div>
+            </div>
+            <div class="project-overlay">
+              <a href="#" class="proj-link-btn">View Project ↗</a>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="proj-cat">Mobile App</span>
+              <span class="proj-year">2023</span>
+            </div>
+            <h3 class="project-title">Velox Finance</h3>
+            <p class="project-desc">iOS/Android finance tracking app with intuitive UX and real-time data visualization capabilities.</p>
+            <div class="project-actions">
+              <button class="like-btn" data-id="4" aria-label="Like project">
+                <div class="like-heart">
+                  <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <span class="like-count">29</span>
+                <div class="like-particles" aria-hidden="true"></div>
+              </button>
+              <button class="comment-btn" data-id="4" aria-label="Comment">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span class="comment-count">11</span>
+              </button>
+            </div>
+          </div>
+          <div class="comment-box" id="comment-box-4">
+            <div class="comments-list" id="comments-4"></div>
+            <div class="comment-input-wrap">
+              <input type="text" class="comment-input" placeholder="Add a comment..." data-project="4" />
+              <button class="comment-submit" data-project="4">Send</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 5 -->
+        <article class="project-card reveal-up" data-delay="100">
+          <div class="project-thumb" style="--accent: #34d399">
+            <div class="project-thumb-inner">
+              <div class="proj-icon">⬢</div>
+            </div>
+            <div class="project-overlay">
+              <a href="#" class="proj-link-btn">View Project ↗</a>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="proj-cat">3D / WebGL</span>
+              <span class="proj-year">2022</span>
+            </div>
+            <h3 class="project-title">Aurora Interactive</h3>
+            <p class="project-desc">Immersive WebGL product experience for a tech startup launch, featuring 3D interactions and spatial audio.</p>
+            <div class="project-actions">
+              <button class="like-btn" data-id="5" aria-label="Like project">
+                <div class="like-heart">
+                  <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <span class="like-count">56</span>
+                <div class="like-particles" aria-hidden="true"></div>
+              </button>
+              <button class="comment-btn" data-id="5" aria-label="Comment">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span class="comment-count">18</span>
+              </button>
+            </div>
+          </div>
+          <div class="comment-box" id="comment-box-5">
+            <div class="comments-list" id="comments-5"></div>
+            <div class="comment-input-wrap">
+              <input type="text" class="comment-input" placeholder="Add a comment..." data-project="5" />
+              <button class="comment-submit" data-project="5">Send</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TESTIMONIALS / QUOTE MARQUEE
+  ============================================================ -->
+  <div class="marquee-section marquee-reverse">
+    <div class="marquee-track">
+      <div class="marquee-inner reverse">
+        <span>Strategy</span><span class="marquee-dot">◆</span>
+        <span>Precision</span><span class="marquee-dot">◆</span>
+        <span>Elegance</span><span class="marquee-dot">◆</span>
+        <span>Innovation</span><span class="marquee-dot">◆</span>
+        <span>Craft</span><span class="marquee-dot">◆</span>
+        <span>Vision</span><span class="marquee-dot">◆</span>
+        <span>Strategy</span><span class="marquee-dot">◆</span>
+        <span>Precision</span><span class="marquee-dot">◆</span>
+        <span>Elegance</span><span class="marquee-dot">◆</span>
+        <span>Innovation</span><span class="marquee-dot">◆</span>
+        <span>Craft</span><span class="marquee-dot">◆</span>
+        <span>Vision</span><span class="marquee-dot">◆</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       CONTACT
+  ============================================================ -->
+  <section class="contact" id="contact">
+    <div class="contact-bg">
+      <div class="hero-orb orb-3"></div>
+    </div>
+    <div class="container">
+      <div class="contact-inner reveal-up">
+        <div class="section-label">— Get In Touch</div>
+        <h2 class="section-title">Let's create something <em>extraordinary</em></h2>
+        <p class="contact-sub">Have a project in mind? Let's talk about it. I'm available for freelance work and creative collaborations.</p>
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <input type="text" id="fname" name="name" class="form-input" placeholder=" " required />
+              <label for="fname" class="form-label">Your Name</label>
+            </div>
+            <div class="form-group">
+              <input type="email" id="femail" name="email" class="form-input" placeholder=" " required />
+              <label for="femail" class="form-label">Email Address</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" id="fsubject" name="subject" class="form-input" placeholder=" " />
+            <label for="fsubject" class="form-label">Project Subject</label>
+          </div>
+          <div class="form-group">
+            <textarea id="fmessage" name="message" class="form-input form-textarea" placeholder=" " required></textarea>
+            <label for="fmessage" class="form-label">Your Message</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-submit">
+            <span class="btn-text">Send Message</span>
+            <span class="btn-icon">→</span>
+          </button>
+        </form>
+        <div class="contact-success" id="contactSuccess">
+          <div class="success-icon">✓</div>
+          <p>Message sent! I'll get back to you soon.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">ORIDRA</div>
+          <p>Crafting digital experiences that bridge beauty and function.</p>
+        </div>
+        <div class="footer-links-group">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#stats">Stats</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="services.html">Services</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="#">Twitter/X</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Dribbble</a></li>
+            <li><a href="#">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Oridra. Crafted with intention.</p>
+        <p>All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
