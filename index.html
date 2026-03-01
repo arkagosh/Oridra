@@ -495,7 +495,9 @@
         <div class="section-label">— Get In Touch</div>
         <h2 class="section-title">Let's create something <em>extraordinary</em></h2>
         <p class="contact-sub">Have a project in mind? Let's talk about it. I'm available for freelance work and creative collaborations.</p>
-        <form class="contact-form" id="contactForm" novalidate>
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/mreavolk" method="POST" novalidate>
+          <input type="hidden" name="_replyto" value="yourgmail@gmail.com" />
+          <input type="hidden" name="_subject" value="New message from Oridra Portfolio!" />
           <div class="form-row">
             <div class="form-group">
               <input type="text" id="fname" name="name" class="form-input" placeholder=" " required />
